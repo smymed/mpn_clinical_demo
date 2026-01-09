@@ -103,7 +103,7 @@ with col2:
     fev1_abs = st.number_input("FEV1 绝对值 (L)", 0.0, 10.0, 2.50, step=0.01)
     fev1_pred = st.number_input("FEV1 占预计值百分比 (%)", 0.0, 200.0, 80.0, 0.01)
     
-    st.markdown("##### 🔢 结节位置计数")
+    st.markdown("##### 🔢 结节位置计数(仅计算>5mm结节)")
     loc_rml = st.number_input("右中叶 (RML) 结节个数", 0, 50, 0)
     loc_lul = st.number_input("左上叶 (LUL) 结节个数", 0, 50, 0)
     loc_lll = st.number_input("左下叶 (LLL) 结节个数", 0, 50, 0)
@@ -183,3 +183,4 @@ if st.button("🚀 开始风险预测", type="primary", use_container_width=True
     except Exception as e:
         st.error(f"发生错误: {e}")
         st.write("调试建议：请确认 scaler.joblib ")
+
