@@ -8,7 +8,7 @@ import numpy as np
 # 1. 页面配置
 # ==========================================
 st.set_page_config(page_title="MPN风险智能预测系统", page_icon="🩺", layout="centered")
-st.title("🩺MPN风险智能预测模型（临床模型demo）-by smy")
+st.title("🩺MPN风险智能预测系统（临床模型demo）-by smy")
 st.info("💡 提示：请输入患者的原始临床数据进行预测（本工具仅供科研辅助，不作为单一临床诊断依据。）")
 
 # ==========================================
@@ -114,8 +114,6 @@ with col2:
 if st.button("🚀 开始风险预测", type="primary", use_container_width=True):
     try:
         # --- 步骤 A: 准备连续变量进行标准化 ---
-        # 必须严格遵守训练时 scaler 的列顺序
-        # 顺序: [FEV1_Abs, FEV1_Pred_Pct, Loc_RML, Loc_LUL, Loc_LLL, Nodule_Diameter]
         
         continuous_data = pd.DataFrame([[
             fev1_abs, 
@@ -154,7 +152,7 @@ if st.button("🚀 开始风险预测", type="primary", use_container_width=True
         final_input['Nodule_Diameter'] = df_scaled['Nodule_Diameter']
 
         # --- 步骤 C: 模型预测 ---
-        # 获取正类概率 (假设 1 为恶性/高风险)
+        # 获取正类概率 
         prob = model.predict_proba(final_input)[0][1]
         prediction = model.predict(final_input)[0]
         
@@ -183,5 +181,6 @@ if st.button("🚀 开始风险预测", type="primary", use_container_width=True
     except Exception as e:
         st.error(f"发生错误: {e}")
         st.write("调试建议：请确认 scaler.joblib ")
+
 
 
